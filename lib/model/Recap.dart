@@ -1,43 +1,44 @@
 import 'dart:convert';
 
-List<Recap> recapFromJson(String str) => List<Recap>.from(json.decode(str).map((x) => Recap.fromJson(x)));
+List<Recap> recapFromJson(String str) =>
+    List<Recap>.from(json.decode(str).map((x) => Recap.fromJson(x)));
 
-String recapToJson(List<Recap> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String recapToJson(List<Recap> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Recap {
-    Recap({
-        this.docName,
-        this.patientName,
-        this.pharmacyName,
-        this.patientId,
-        this.pharmacyId,
-        this.pharmacyPhone,
-        this.medName,
-        this.medQty,
-        this.medDesc,
-        this.medDose,
-        this.receiverName,
-        this.receiverAddress,
-        this.receiverPhone,
-        this.date
-    });
+  Recap(
+      {this.docName,
+      this.patientName,
+      this.pharmacyName,
+      this.patientId,
+      this.pharmacyId,
+      this.pharmacyPhone,
+      this.medName,
+      this.medQty,
+      this.medDesc,
+      this.medDose,
+      this.receiverName,
+      this.receiverAddress,
+      this.receiverPhone,
+      this.date});
 
-    String docName;
-    String patientName;
-    String pharmacyName;
-    String patientId;
-    String pharmacyId;
-    String pharmacyPhone;
-    String medName;
-    String medQty;
-    String medDesc;
-    String medDose;
-    String receiverName;
-    String receiverAddress;
-    String receiverPhone;
-    String date;
+  String docName;
+  String patientName;
+  String pharmacyName;
+  String patientId;
+  String pharmacyId;
+  String pharmacyPhone;
+  String medName;
+  String medQty;
+  String medDesc;
+  String medDose;
+  String receiverName;
+  String receiverAddress;
+  String receiverPhone;
+  String date;
 
-    factory Recap.fromJson(Map<String, dynamic> json) => Recap(
+  factory Recap.fromJson(Map<String, dynamic> json) => Recap(
         docName: json["nama dokter"],
         patientName: json["nama pasien"],
         pharmacyName: json["nama farmasi"],
@@ -47,14 +48,14 @@ class Recap {
         medName: json["nama obat"],
         medQty: json["jumlah obat"],
         medDesc: json["deskripsi"],
-        medDose: json["dosis"],
+        medDose: json["dosis obat"],
         receiverName: json["nama penerima"],
         receiverAddress: json["alamat penerima"],
         receiverPhone: json["nomor penerima"],
-        date : json["tanggal"],
-    );
+        date: json["tanggal"],
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "nama dokter": docName,
         "nama pasien": patientName,
         "nama farmasi": pharmacyName,
@@ -68,6 +69,6 @@ class Recap {
         "nama penerima": receiverName,
         "alamat penerima": receiverAddress,
         "nomor penerima": receiverPhone,
-        "tanggal" : date
-    };
+        "tanggal": date
+      };
 }
