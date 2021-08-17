@@ -31,12 +31,12 @@ class _PharmacyLoginState extends State<PharmacyLogin> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left:15, right:15),
-                    height: MediaQuery.of(context).size.height/2.3,
+                    margin: EdgeInsets.only(left:15, right:15, top:7),
+                    height: MediaQuery.of(context).size.height/2.0,
                     decoration: BoxDecoration(
                       color: Colors.white10,
                       image: DecorationImage(
-                        image: AssetImage("assets/pharmacy.png"),
+                        image: AssetImage("assets/login.jpg"),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -44,7 +44,7 @@ class _PharmacyLoginState extends State<PharmacyLogin> {
                   Padding(
                     padding: const EdgeInsets.only(top: 1),
                     child: Text(
-                      "FORMULIR LOGIN FARMASI",
+                      "FORMULIR LOGIN",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 25,
@@ -140,6 +140,7 @@ void signInUser() async {
     String sipnum;
     String agencies;
     String pharnum;
+    String status;
 
     _emailController.clear();
     _passwordController.clear();
@@ -150,11 +151,13 @@ void signInUser() async {
         sipnum = event.get('nomor sip');
         agencies = event.get('instansi pelayanan');
         pharnum = event.get('nomor telepon');
+        status = event.get('status');
       userPref.write('users', namas);
       userPref.write('uidpref', useruid);
       userPref.write('sippref', sipnum);
       userPref.write('agenpref', agencies);
       userPref.write('pharnum', pharnum);
+      userPref.write('status', status);
       });
     // UserPreferences.setUserId(useruid);
     // UserPreferences.setUserName(namas);

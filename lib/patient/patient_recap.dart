@@ -262,14 +262,14 @@ class _PatRecapState extends State<PatRecap> {
                         textAlign: TextAlign.center,
                       )),
                   Form(
-                    // key: _formKey,
+                    key: _formKey,
                     // TODO : add form key
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.only(left: 25.0, right: 25.0),
-                          child: TextField(
+                          child: TextFormField(
                             // TODO: Validator
 
                             controller: _raddressController,
@@ -279,13 +279,13 @@ class _PatRecapState extends State<PatRecap> {
                                 labelText: 'Alamat Penerima',
                                 hintText:
                                     'Tuliskan Beserta Kota, Kabupaten, dan Kode Pos'),
-                            // validator: (String val) {
-                            //   if (val.isEmpty) {
-                            //     return 'Alamat tidak boleh kosong';
-                            //   } else {
-                            //     return null;
-                            //   }
-                            // },
+                                      validator: (String val) {
+                                        if (val.isEmpty) {
+                                          return 'Alamat tidak boleh kosong';
+                                        } else {
+                                          return null;
+                                        }
+                                      },
                             style: TextStyle(fontSize: 14),
                           ),
                         ),
@@ -296,18 +296,17 @@ class _PatRecapState extends State<PatRecap> {
                     padding: const EdgeInsets.all(20),
                     child: RaisedButton(
                       onPressed: () {
-                        // final result = _formKey.currentState.validate();
-
-                        // if (result == false) {
-                        //   // If the form is valid, display a snackbar. In the real world,
-                        //   // you'd often call a server or save the information in a database.
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(
-                        //         backgroundColor: Colors.red,
-                        //         content: Text(
-                        //             'Harap mengisi data alamat sebelum submit!')),
-                        //   );
-                        // } else {
+                        final result = _formKey.currentState.validate();
+                        if (result == false) {
+                          // If the form is valid, display a snackbar. In the real world,
+                          // you'd often call a server or save the information in a database.
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text(
+                                    'Harap mengisi data alamat sebelum submit!')),
+                          );
+                        } else {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => PatMain()),
@@ -331,7 +330,7 @@ class _PatRecapState extends State<PatRecap> {
                           'alamat penerima': _raddressController.text,
                           'nomor penerima': '$rPhone'
                         });
-                        // }
+                        }
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(80.0),

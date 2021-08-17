@@ -17,7 +17,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init('UserPref');
-  // await UserPreferences.init();
   runApp(MyApp());
 }
 

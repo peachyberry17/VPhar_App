@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:start_trial/services/auth_services.dart';
 import 'doctor_image.dart';
 
@@ -9,6 +12,7 @@ class DoctorRegister extends StatefulWidget {
 
 class _DoctorRegisterState extends State<DoctorRegister> {
   final formKey = GlobalKey<FormState>();
+  final userPref = GetStorage();
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _sipController = TextEditingController();
@@ -187,13 +191,27 @@ void createUser() async {
   if (result == null) {
     print('Periksa Kembali Formulir Anda');
   } else {
-    print(result.toString());
+    User userData;
+    String namas;
+    String status;
+
     _nameController.clear();
     _sipController.clear();
     _phoneController.clear();
     _emailController.clear();
+
+    userData = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance.collection("profileInfo").doc(userData.uid).snapshots().listen((event) {
+        namas = event.get('nama');
+        status = event.get('status');
+      userPref.write('users', namas);
+      userPref.write('status', status);
+      });
+    // UserPreferences.setUserId(useruid);
+    // UserPreferences.setUserName(namas);
+    }
     Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorProfile()),);
+    print('Berhasil');
   }
  }
-}
 

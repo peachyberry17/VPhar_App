@@ -16,6 +16,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
   
   String imagePath;
   String namas;
+  String status;
   User userData;
   final userPref = GetStorage();
 
@@ -24,6 +25,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
     FirebaseFirestore.instance.collection("profileInfo").doc(userData.uid).snapshots().listen((event) {
       setState(() {
         namas = event.get('nama');
+        status = event.get('status');
       });
     });
   }
@@ -37,6 +39,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
 
    @override
   Widget build(BuildContext context) {
+    print('hi');
     print(userPref.read('users'));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -74,7 +77,14 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     height: 36.0,
                     child: RaisedButton(
                       onPressed: (){
+                          if (userPref.read('status')=='Dokter')
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorMain()),);
+
+                          if (userPref.read('status')=='Pasien')
                           Navigator.push(context, MaterialPageRoute(builder: (context) => PatMain()),);
+
+                          if (userPref.read('status')=='Farmasi')
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PharMain()),);
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(80.0),

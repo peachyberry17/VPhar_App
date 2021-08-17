@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:start_trial/doctor/doctor_image.dart';
 import 'package:start_trial/services/auth_services.dart';
 
 class PharmacyRegister extends StatefulWidget {
@@ -8,6 +12,7 @@ class PharmacyRegister extends StatefulWidget {
 
 class _PharmacyRegisterState extends State<PharmacyRegister> {
   final formKey = GlobalKey<FormState>();
+  final userPref = GetStorage();
 
   // static AuthServices _auth = AuthServices();
 
@@ -185,15 +190,27 @@ void createUser() async {
      _emailController.text,  _agencyController.text, _nameController.text, _bpjsController.text, _siaController.text, _sipController.text, _phoneController.text, _jobController.text, _roleController.text='Farmasi', _placeController.text, _passwordController.text);
   if (result == null) {
     print('Email Tidak Valid');
-  } else {
-    print(result.toString());
+  } else {User userData;
+    String namas;
+    String status;
+
     _nameController.clear();
     _siaController.clear();
     _phoneController.clear();
     _emailController.clear();
-    _passwordController.clear();
-    Navigator.pop(context);
+
+    userData = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance.collection("profileInfo").doc(userData.uid).snapshots().listen((event) {
+        namas = event.get('nama');
+        status = event.get('status');
+      userPref.write('users', namas);
+      userPref.write('status', status);
+      });
+    // UserPreferences.setUserId(useruid);
+    // UserPreferences.setUserName(namas);
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorProfile()),);
+    print('Berhasil');
   }
  }
-}
 
